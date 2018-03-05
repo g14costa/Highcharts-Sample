@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <canvas id="speedChart" width="600" height="400"></canvas>
+</body>
+</html>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
+<script>
+    var labels = getLabel(50000);
+    var data = getData();
+
+    var speedCanvas = document.getElementById("speedChart");
+
+    Chart.defaults.global.defaultFontFamily = "Lato";
+    Chart.defaults.global.defaultFontSize = 18;
+
+    var speedData = {
+        labels: labels,
+        datasets: [{
+            label: "Car Speed (mph)",
+            data: data,
+        }]
+    };
+
+    var chartOptions = {
+        legend: {
+            display: true,
+            position: 'top',
+            labels: {
+                boxWidth: 80,
+                fontColor: 'black'
+            }
+        },
+        elements: {
+            line: {
+                tension: 0.000001
+            }
+        }
+    };
+
+    var lineChart = new Chart(speedCanvas, {
+        type: 'line',
+        data: speedData,
+        options: chartOptions
+    });
+
+    function getLabel(n) {
+        var arr = [],
+            i;
+        for (i = 0; i < n; i = i + 1) {            
+            arr.push([
+                "t"
+            ]);
+        }
+        return arr;
+    }
+
+    function getData() {
+        var arr = []            
+
+        return Array.from({ length: 50000 }, () => Math.floor(Math.random() * 40));
+    }
+</script>
